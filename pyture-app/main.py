@@ -1,7 +1,8 @@
+import sys
+from PyQt5 import QtWidgets
+from package.app import PytureApplication
+
 if __name__ == '__main__':
-    import sys
-    from PyQt5 import QtWidgets
-    from package.app import PytureApplication
 
     app = QtWidgets.QApplication(sys.argv)
 

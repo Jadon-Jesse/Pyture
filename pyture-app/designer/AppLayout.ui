@@ -10,12 +10,15 @@
     <height>711</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PytureApp</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="contextMenuPolicy">
-    <enum>Qt::ActionsContextMenu</enum>
+    <enum>Qt::DefaultContextMenu</enum>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -35,34 +38,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionLoad"/>
-    <addaction name="separator"/>
-    <addaction name="actionClose"/>
-   </widget>
-   <widget class="QMenu" name="menuAutoPlay">
-    <property name="title">
-     <string>AutoPlay</string>
-    </property>
-    <addaction name="actionSet_Timer"/>
-    <addaction name="separator"/>
-    <addaction name="actionCancel_Timer"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuAutoPlay"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad">
