@@ -33,9 +33,10 @@ class PytureApplication(QtWidgets.QMainWindow, AppLayout.Ui_MainWindow):
         super(PytureApplication, self).__init__(parent)
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon(str(app_icon)))
-        
+
         # self.webview = qtwe.QWebEngineView()
         self.base_path = Path.cwd()
+        self.current_path = self.base_path
 
         #holder for the cureent list of images
         self.image_reel = []
@@ -53,6 +54,9 @@ class PytureApplication(QtWidgets.QMainWindow, AppLayout.Ui_MainWindow):
         self.files = []
         self.init_application()
         self.actionLoad.triggered.connect(self.load_directory)
+
+    def set_current_path(self, new_path):
+        self.current_path = new_path
 
 
     def on_context_menu(self, point):
@@ -81,6 +85,21 @@ class PytureApplication(QtWidgets.QMainWindow, AppLayout.Ui_MainWindow):
 
     def dec_current_image_pos(self):
         self.cur_image -= 1
+
+    def refresh_images_on_path(self):
+        #compare images found in path with current reel
+        images = self.find_all_supported_image_files_in_path(self.current_path)
+
+        if images == self.image_reel:
+            logger.debug("same")
+        elif len(images) > len(self.image_reel):
+            logger.debug("more")
+            self.image_reel = images
+        else:
+            logger.debug("less")
+            self.set_image_reel(images)
+
+
 
 
     def next_current_image(self):
@@ -126,6 +145,7 @@ class PytureApplication(QtWidgets.QMainWindow, AppLayout.Ui_MainWindow):
             #First check if there are any pics in the base path
             image_files = self.find_all_supported_image_files_in_path(dir_path)
             if len(image_files) > 0:
+                self.set_current_path(dir_path)
                 self.set_image_reel(image_files)
                 self.get_scaled_image_and_display()
             else:
@@ -139,6 +159,7 @@ class PytureApplication(QtWidgets.QMainWindow, AppLayout.Ui_MainWindow):
 
 
     def next_image(self):
+        self.refresh_images_on_path()
         if len(self.image_reel) > 0:
             #increase the current image pos properly
             self.next_current_image()
